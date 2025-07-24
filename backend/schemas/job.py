@@ -17,4 +17,4 @@ class StoryJobResponse(BaseModel):
         from_attributes = True
 
 class StoryJobCreate(StoryJobBase): 
-    pass
+    pass 
