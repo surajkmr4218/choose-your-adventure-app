@@ -10,3 +10,9 @@ from backend.models.job import StoryJob
 from backend.schemas.story import (
     CompleteStoryResponse, CompleteStoryNodeResponse, CreateStoryRequest
 )
+from backend.schemas.job import StoryJobResponse
+
+router = APIRouter(
+    prefix="/stories",
+    tags=["stories"]
+)
