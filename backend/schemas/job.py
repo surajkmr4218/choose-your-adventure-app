@@ -1,20 +1,20 @@
-from typing import Optional 
-from datetime import datetime 
+from typing import Optional
+from datetime import datetime
 from pydantic import BaseModel
-
 class StoryJobBase(BaseModel):
-    theme = None 
+    theme: str
 
-class StoryJobResponse(BaseModel): 
-    job_id = None 
-    status = None 
-    created_at = datetime 
-    story_id = None 
-    completed_at = None 
-    error = None 
+class StoryJobResponse(BaseModel):
+    job_id: str
+    status: str
+    created_at: datetime
+    story_id: Optional[int] = None
+    completed_at: Optional[datetime] = None
+    error: Optional[str] = None
 
-    class Config: 
+    class Config:
         from_attributes = True
 
-class StoryJobCreate(StoryJobBase): 
-    pass 
+
+class StoryJobCreate(StoryJobBase):
+    pass
