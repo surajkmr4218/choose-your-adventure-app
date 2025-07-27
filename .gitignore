@@ -5,3 +5,6 @@ frontend/.env
 # Catch all .env files in subdirectories
 **/.env
 **/.env.*
+
+# CLAUDE History
+CLAUDE.md
