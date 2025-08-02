@@ -5,7 +5,6 @@ import LoadingStatus from "./LoadingStatus.jsx";
 import StoryGame from "./StoryGame.jsx";
 import {API_BASE_URL} from "../util.js";
 
-
 function StoryLoader() {
     const {id} = useParams();
     const navigate = useNavigate();
