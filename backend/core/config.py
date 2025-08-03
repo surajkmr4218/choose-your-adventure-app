@@ -15,7 +15,7 @@ class Settings(BaseSettings):
 
     def __init__(self, **values):
         super().__init__(**values)
-        if not self.DEBUG:
+        if not self.DEBUG and not values.get("DATABASE_URL"):
             db_user = os.getenv("DB_USER")
             db_password = os.getenv("DB_PASSWORD")
             db_host = os.getenv("DB_HOST")
