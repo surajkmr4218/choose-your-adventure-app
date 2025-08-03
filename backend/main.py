@@ -20,8 +20,6 @@ app = FastAPI(
 # import ALLOWED_ORIGINS from settings 
 # TODO: ADD VERCEL FRONTEND TO .env
 allowed_origins = settings.ALLOWED_ORIGINS
-if isinstance(allowed_origins, str):
-    allowed_origins = [origin.strip() for origin in allowed_origins.split(",")]
 
 app.add_middleware(
     CORSMiddleware, 
@@ -41,7 +39,7 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    
+
     # Use environment variables for production deployment
     host = os.getenv("HOST", "127.0.0.1")
     port = int(os.getenv("PORT", 8000))
