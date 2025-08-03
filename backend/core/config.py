@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     API_PREFIX: str = "/api"
     DEBUG: bool = False
 
-    DATABASE_URL: str = None
+    DATABASE_URL: str 
 
     ALLOWED_ORIGINS: str = ""
 
