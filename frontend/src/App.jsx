@@ -6,7 +6,7 @@ import StoryGenerator from './components/StoryGenerator'
 function App() {
   return (
     <Router> 
-      <div className="app-contianer">
+      <div className="app-container">
         <header> 
           <h1>Interactive Story Generator</h1>
         </header>
@@ -22,3 +22,4 @@ function App() {
 }
 
 export default App
+
