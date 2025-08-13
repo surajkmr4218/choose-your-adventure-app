@@ -1,10 +1,38 @@
-# Specific environment files
+# Environment files
 backend/.env
 frontend/.env
-
-# Catch all .env files in subdirectories
 **/.env
 **/.env.*
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.pytest_cache/
+backend/*.pyc
+backend/.coverage
+backend/htmlcov/
+
+# Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.npm
+frontend/.eslintcache
+frontend/coverage/
+
+# Database
+backend/database.db
+backend/*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
 
 # CLAUDE History
 CLAUDE.md
