@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { BrowserRouter } from 'react-router-dom'
 import axios from 'axios'
 import StoryGenerator from '../components/StoryGenerator'
@@ -29,12 +29,7 @@ const renderWithRouter = (component) => {
 describe('StoryGenerator', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    vi.clearAllTimers()
-    vi.useFakeTimers()
-  })
-
-  afterEach(() => {
-    vi.useRealTimers()
+    mockNavigate.mockClear()
   })
 
   it('renders theme input initially', () => {
@@ -45,7 +40,10 @@ describe('StoryGenerator', () => {
 
   it('shows loading status after story creation', async () => {
     mockedAxios.post.mockResolvedValueOnce({
-      data: { job_id: 'test-job-id', status: 'pending' }
+      data: { job_id: 'test-job-id', status: 'processing' }
+    })
+    mockedAxios.get.mockResolvedValueOnce({
+      data: { status: 'processing' }
     })
 
     renderWithRouter(<StoryGenerator />)
@@ -57,8 +55,8 @@ describe('StoryGenerator', () => {
     fireEvent.click(button)
 
     await waitFor(() => {
-      expect(screen.getByText('Creating your fantasy adventure...')).toBeInTheDocument()
-    })
+      expect(screen.getByText('Generating Your fantasy Story')).toBeInTheDocument()
+    }, { timeout: 1000 })
   })
 
   it('polls job status after story creation', async () => {
@@ -79,19 +77,16 @@ describe('StoryGenerator', () => {
 
     await waitFor(() => {
       expect(mockedAxios.post).toHaveBeenCalledWith(
-        'http://localhost:8000/api/stories/create',
+        '/api/stories/create',
         { theme: 'fantasy' }
       )
-    })
-
-    // Fast-forward time to trigger polling
-    vi.advanceTimersByTime(5000)
+    }, { timeout: 1000 })
 
     await waitFor(() => {
       expect(mockedAxios.get).toHaveBeenCalledWith(
-        'http://localhost:8000/api/jobs/test-job-id'
+        '/api/jobs/test-job-id'
       )
-    })
+    }, { timeout: 1000 })
   })
 
   it('navigates to story page when job completes', async () => {
@@ -110,12 +105,9 @@ describe('StoryGenerator', () => {
     fireEvent.change(input, { target: { value: 'fantasy' } })
     fireEvent.click(button)
 
-    // Fast-forward time to trigger polling
-    vi.advanceTimersByTime(5000)
-
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith('/story/123')
-    })
+    }, { timeout: 1000 })
   })
 
   it('shows error message when story generation fails', async () => {
@@ -131,7 +123,7 @@ describe('StoryGenerator', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Failed to generate story: Network error')).toBeInTheDocument()
-    })
+    }, { timeout: 1000 })
   })
 
   it('shows error message when job fails', async () => {
@@ -150,12 +142,9 @@ describe('StoryGenerator', () => {
     fireEvent.change(input, { target: { value: 'fantasy' } })
     fireEvent.click(button)
 
-    // Fast-forward time to trigger polling
-    vi.advanceTimersByTime(5000)
-
     await waitFor(() => {
       expect(screen.getByText('LLM error')).toBeInTheDocument()
-    })
+    }, { timeout: 1000 })
   })
 
   it('resets state when try again button is clicked', async () => {
@@ -171,7 +160,7 @@ describe('StoryGenerator', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Failed to generate story: Network error')).toBeInTheDocument()
-    })
+    }, { timeout: 1000 })
 
     fireEvent.click(screen.getByText('Try Again'))
 
