@@ -1,5 +1,4 @@
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from models.story import Story, StoryNode
 from models.job import StoryJob
 

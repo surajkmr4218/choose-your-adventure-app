@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-from core.config import settings 
 
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate 
@@ -16,7 +15,7 @@ class StoryGenerator:
 
     @classmethod
     def _get_llm(cls):
-        openai_api_key = os.getenv("CHOREO_OPENAI_CONNECTION_OPENAI_API_KEY")
+        openai_api_key = os.getenv("CHOREO_OPENAI_CONNECTION_OPENAI_API_KEY") # used to be just OPENAI_API_KEY
 
         if openai_api_key:
             return ChatOpenAI(model="gpt-4o-mini", api_key=openai_api_key)

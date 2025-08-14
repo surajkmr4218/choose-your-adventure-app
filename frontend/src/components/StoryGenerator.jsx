@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useCallback} from "react"
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import ThemeInput from "./ThemeInput.jsx";
@@ -28,7 +28,7 @@ function StoryGenerator() {
                 clearInterval(pollInterval)
             }
         }
-    }, [jobId, jobStatus])
+    }, [jobId, jobStatus, pollJobStatus])
 
     const generateStory = async (theme) => {
         setLoading(true)
@@ -48,7 +48,7 @@ function StoryGenerator() {
         }
     }
 
-    const pollJobStatus = async (id) => {
+    const pollJobStatus = useCallback(async (id) => {
         try {
             const response = await axios.get(`${API_BASE_URL}/jobs/${id}`)
             const {status, story_id, error: jobError} = response.data
@@ -66,10 +66,10 @@ function StoryGenerator() {
                 setLoading(false)
             }
         }
-    }
+    }, [fetchStory])
 
     // when job is finished 
-    const fetchStory = async (id) => {
+    const fetchStory = useCallback(async (id) => {
         try {
             setLoading(false)
             setJobStatus("completed")
@@ -78,7 +78,7 @@ function StoryGenerator() {
             setError(`Failed to load story: ${e.message}`)
             setLoading(false)
         }
-    }
+    }, [navigate])
 
     const reset = () => {
         setJobId(null)

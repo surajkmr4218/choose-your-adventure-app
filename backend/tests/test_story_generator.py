@@ -1,7 +1,6 @@
-import pytest
 from unittest.mock import patch, MagicMock
 from core.story_generator import StoryGenerator
-from core.models import StoryLLMResponse, StoryNodeLLM
+from core.models import StoryNodeLLM
 from models.story import Story, StoryNode
 
 
@@ -82,9 +81,9 @@ class TestStoryGenerator:
         
         assert isinstance(node, StoryNode)
         assert node.content == "Test content"
-        assert node.is_ending == True
-        assert node.is_winning_ending == False
-        assert node.is_root == True
+        assert node.is_ending
+        assert not node.is_winning_ending
+        assert node.is_root
     
     def test_process_story_node_with_options(self, db_session):
         """Test processing node with multiple options"""
