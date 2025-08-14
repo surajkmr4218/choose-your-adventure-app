@@ -14,22 +14,6 @@ function StoryGenerator() {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        let pollInterval;
-
-        if (jobId && jobStatus === "processing") {
-            pollInterval = setInterval(() => {
-                pollJobStatus(jobId)
-            }, 5000)
-        }
-
-        return () => {
-            if (pollInterval) {
-                clearInterval(pollInterval)
-            }
-        }
-    }, [jobId, jobStatus, pollJobStatus])
-
     const generateStory = async (theme) => {
         setLoading(true)
         setError(null)
@@ -47,6 +31,18 @@ function StoryGenerator() {
             setError(`Failed to generate story: ${e.message}`)
         }
     }
+
+    // when job is finished 
+    const fetchStory = useCallback(async (id) => {
+        try {
+            setLoading(false)
+            setJobStatus("completed")
+            navigate(`/story/${id}`)
+        } catch (e) {
+            setError(`Failed to load story: ${e.message}`)
+            setLoading(false)
+        }
+    }, [navigate])
 
     const pollJobStatus = useCallback(async (id) => {
         try {
@@ -68,18 +64,6 @@ function StoryGenerator() {
         }
     }, [fetchStory])
 
-    // when job is finished 
-    const fetchStory = useCallback(async (id) => {
-        try {
-            setLoading(false)
-            setJobStatus("completed")
-            navigate(`/story/${id}`)
-        } catch (e) {
-            setError(`Failed to load story: ${e.message}`)
-            setLoading(false)
-        }
-    }, [navigate])
-
     const reset = () => {
         setJobId(null)
         setJobStatus(null)
@@ -87,6 +71,22 @@ function StoryGenerator() {
         setTheme("")
         setLoading(false)
     }
+
+    useEffect(() => {
+        let pollInterval;
+
+        if (jobId && jobStatus === "processing") {
+            pollInterval = setInterval(() => {
+                pollJobStatus(jobId)
+            }, 5000)
+        }
+
+        return () => {
+            if (pollInterval) {
+                clearInterval(pollInterval)
+            }
+        }
+    }, [jobId, jobStatus, pollJobStatus])
 
     return <div className="story-generator">
         {error && <div className="error-message">
