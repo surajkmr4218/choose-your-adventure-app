@@ -45,7 +45,7 @@ header {
 }
 
 header h1 {
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(135deg, #666666, #1a1a1a, #666666);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
