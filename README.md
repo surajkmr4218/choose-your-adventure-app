@@ -1,6 +1,6 @@
 # 🎭 Choose Your Adventure - Interactive Story Generator
 
-![Screenshot](./assets/screenshot.png)
+![Screenshot](./assets/Screenshot 2025-08-15 at 5.57.31 PM.png)
 
 > *Where every choice writes a new chapter, and AI becomes your co-storyteller*
 
