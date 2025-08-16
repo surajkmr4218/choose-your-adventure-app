@@ -4,16 +4,12 @@
 
 > *Where every choice writes a new chapter, and AI becomes your co-storyteller*
 
-Welcome to the ultimate choose-your-own-adventure experience! This isn't your grandmother's picture book - it's a modern, AI-powered story generator that creates unique narrative paths based on your imagination and choices.
-
-## 🌟 What Makes This Special?
+Welcome to the ultimate choose-your-own-adventure experience! 
 
 > **AI-Powered Storytelling**: Using OpenAI's GPT-4o-mini to craft engaging narratives on the fly  
 > **Your Theme, Your Rules**: Start with any theme - from space pirates to medieval mysteries  
 > **Real-time Generation**: Watch stories unfold as you make choices  
 > **Infinite Possibilities**: Every playthrough is unique  
-
-## ⚡ The Tech Magic Behind the Scenes
 
 ## 🚀 How It Works
 
