@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   server: {
-    proxy: import.meta.env.MODE === 'development' ? {
+    proxy: mode === 'development' ? {
       "/api": {
         target: "http://localhost:8000",
         changeOrigin: true,
@@ -18,4 +18,4 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/tests/setup.js',
   },
-})
+}))
